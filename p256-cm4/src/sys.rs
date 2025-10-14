@@ -1,8 +1,8 @@
 use crate::asm::{
-    P256_add_mod_n, P256_check_range_n, P256_check_range_p, P256_decompress_point,
+    FGInteger, P256_add_mod_n, P256_check_range_n, P256_check_range_p, P256_decompress_point,
     P256_divsteps2_31, P256_double_j, P256_from_montgomery, P256_matrix_mul_fg_9, P256_mul_mod_n,
     P256_negate_mod_n_if, P256_negate_mod_p_if, P256_point_is_on_curve, P256_reduce_mod_n_32bytes,
-    P256_to_montgomery, P256_verify_last_step,
+    P256_to_montgomery, P256_verify_last_step, XYInteger,
     jacobian::{P256_add_sub_j, P256_jacobian_to_affine},
 };
 
@@ -816,27 +816,6 @@ pub fn verify(
         });
 
     unsafe { P256_verify_last_step(&raw const *r, &raw const cp as _) }
-}
-
-#[repr(C)]
-#[derive(Default)]
-pub(crate) struct FGInteger {
-    // To get the value this struct represents,
-    // interpret signed_value as a two's complement 288-bit little endian integer,
-    // and negate if flip_sign is -1
-    flip_sign: i32, // 0 or -1
-    // of 288 bits, 257 are useful (top 31 bits are sign-extended from bit 256)
-    signed_value: [u32; 9],
-}
-
-#[repr(C)]
-#[derive(Default)]
-pub(crate) struct XYInteger {
-    // To get the value this struct represents,
-    // interpret signed_value as an unsigned 288-bit little endian integer,
-    // and negate if flip_sign is -1
-    flip_sign: i32,  // 0 or -1
-    value: [u32; 8], // unsigned value, 0 <= value < P256_order
 }
 
 #[repr(C)]
