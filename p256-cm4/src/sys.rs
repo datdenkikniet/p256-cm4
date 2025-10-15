@@ -728,6 +728,16 @@ pub fn verify(
         return false;
     }
 
+    verify_no_bounds_checks(public_key_x, public_key_y, hash, r, s)
+}
+
+pub(crate) fn verify_no_bounds_checks(
+    public_key_x: &[u32; 8],
+    public_key_y: &[u32; 8],
+    hash: &[u8],
+    r: &[u32; 8],
+    s: &[u32; 8],
+) -> bool {
     let mut pk_table: [[[u32; 8]; 3]; 8] = [[[0; 8]; 3]; 8];
     unsafe {
         P256_to_montgomery(&raw mut pk_table[0][0] as _, public_key_x);

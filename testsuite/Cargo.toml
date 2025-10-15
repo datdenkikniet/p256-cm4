@@ -18,5 +18,5 @@ defmt = "1.0"
 defmt-rtt = "1.0"
 defmt-test = "0.4"
 hex-literal = "1.0.0"
-p256-cm4.path = "../p256-cm4"
+p256-cm4 = { path = "../p256-cm4", features = [ "defmt" ] }
 panic-probe = { version = "1.0", features = ["print-defmt" ] }
