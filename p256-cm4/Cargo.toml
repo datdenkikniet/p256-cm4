@@ -16,10 +16,13 @@ all-features = true
 rustdoc-args = ["--cfg", "docsrs"]
 
 [features]
+default = [ "p256" ]
 use-mul-for-sqr = [ ]
 fpu = [ ]
+p256 = [ "dep:p256" ]
 
 [dependencies]
 cfg-if = { version = "1.0.3", default-features = false }
+p256 = { version = "0.13", default-features = false, features = [ "ecdsa" ], optional = true }
 generic-array = { version = "=0.14.7", default-features = false }
 defmt = { version = "1.0", optional = true }
