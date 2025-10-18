@@ -9,6 +9,9 @@ use crate::asm::{Montgomery, P256_decompress_point, P256_point_is_on_curve, P256
 #[cfg(feature = "p256")]
 mod p256;
 
+#[cfg(feature = "signature")]
+mod signature;
+
 #[cfg(target_arch = "arm")]
 pub(crate) mod asm;
 
